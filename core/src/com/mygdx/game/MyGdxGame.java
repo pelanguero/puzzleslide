@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,13 +18,16 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		table= new Table();
-		table.setPieces(Table.buildPieces(img,64, 64,img.getWidth(), img.getHeight() ));
 		table.setInitPositionX(0);
 		table.setInitPositionY(0);
+		table.setEmptyX(0);
+		table.setEmptyY(1);
+		table.setPieces(Table.buildPieces(img,64, 64,img.getWidth(), img.getHeight(),table ));
 	}
 
 	@Override
 	public void render () {
+		
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 		batch.begin();
 		table.draw(batch);

@@ -13,6 +13,9 @@ public class Table {
     private List<Piece> pieces;
     private int initPositionX;
     private int initPositionY;
+
+    private int emptyX;
+    private int emptyY;
     private int count=0;
     public void draw(SpriteBatch batch){
         for (int i=0;i<pieces.size();i++
@@ -21,7 +24,7 @@ public class Table {
         }
     }
 
-    public static List<Piece> buildPieces(Texture texture,int width,int height,int imageWidth,int imageHeight){
+    public static List<Piece> buildPieces(Texture texture,int width,int height,int imageWidth,int imageHeight,Table table){
         List<Piece> retorno=new ArrayList<>();
         int maxY=imageHeight/height;
         for(int i=0;(i*height)<imageHeight;i++){
@@ -31,7 +34,9 @@ public class Table {
                 pieza.setY(maxY-i);
                 pieza.setSizeX(width);
                 pieza.setSizeY(height);
-                pieza.setCanMove(true);
+                pieza.setCanMove(((table.getEmptyX()+1)==j&&(table.getEmptyY())==(maxY-i))||
+                        ((table.getEmptyX())==j&&(table.getEmptyY()-1)==(maxY-i)));
+                pieza.setShouldDraw(!(table.getEmptyX()==j && table.getEmptyY()==(maxY-i)));
                 pieza.setRegion(new TextureRegion(texture,
                         (j*height),
                         (i*width),height,width));
@@ -63,5 +68,21 @@ public class Table {
 
     public void setInitPositionY(int initPositionY) {
         this.initPositionY = initPositionY;
+    }
+
+    public int getEmptyX() {
+        return emptyX;
+    }
+
+    public void setEmptyX(int emptyX) {
+        this.emptyX = emptyX;
+    }
+
+    public int getEmptyY() {
+        return emptyY;
+    }
+
+    public void setEmptyY(int emptyY) {
+        this.emptyY = emptyY;
     }
 }

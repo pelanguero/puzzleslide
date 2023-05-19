@@ -11,13 +11,16 @@ public class Piece {
     private int sizeX;
     private int sizeY;
     private boolean canMove;
+    private boolean shouldDraw;
     private int count=0;
     public Piece() {
 
     }
 
     public void draw(SpriteBatch batch,int offsetX,int offsetY){
-        batch.draw(region,offsetX+((x+1)*sizeX),offsetY+((y+1)*sizeY));
+        if(shouldDraw){
+            batch.draw(region,offsetX+((x+1)*sizeX),offsetY+((y+1)*sizeY));
+        }
     }
 
     public TextureRegion getRegion() {
@@ -78,5 +81,13 @@ public class Piece {
                 ", sizeY=" + sizeY +
                 ", canMove=" + canMove +
                 '}';
+    }
+
+    public boolean isShouldDraw() {
+        return shouldDraw;
+    }
+
+    public void setShouldDraw(boolean shouldDraw) {
+        this.shouldDraw = shouldDraw;
     }
 }
